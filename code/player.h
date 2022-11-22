@@ -1,7 +1,10 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "person.h"
+#include <SFML/Graphics.hpp>
 #include <iostream>
+
+using namespace sf;
 
 /*
 class Player : public Person{

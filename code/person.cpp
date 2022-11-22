@@ -1,34 +1,33 @@
 #include "person.h"
+#include <SFML/Graphics.hpp>
 #include <iostream>
 //MAKE SURE TO #INCLUDE SET_POSTION FUNCTION FOR PERSON CONSTRUCTOR
+using namespace sf;
 
-/*
 Person::Person()
 {
     health = 100;
-    postion = setPostion();
 }
-Vector2f Person::get_position(person_position)
+Vector2f Person::getPosition(Vector2f person_position)
 {
-    position.x = person_position.x;
-    position.y = person_position.y;
+    Vector2f position = person_position;
     return position;
 }
-double Person::get_health()
+double Person::getHealth()
 {
     return health;
 }
-bool Person::check_touch(person1_position, person2_position)
+bool Person::check_touch(Vector2f person1_position, Vector2f person2_position)
 {
-    if(person1_positon.get_position == person2_position.get_position())
+    if(getPosition(person1_position) == getPosition(person2_position))
     {
         return true;
     }
     return false;
 }
-bool Person::check_hit(person_position, projectile_position)
+bool Person::check_hit(Vector2f person_position, Vector2f projectile_position)
 {
-    if(person_position.get_position() == projectile_position.get_position())
+    if(getPosition(person_position) == getPosition(projectile_position))
     {
         return true;
     }
@@ -36,4 +35,4 @@ bool Person::check_hit(person_position, projectile_position)
 }
 
 
-*/
+
