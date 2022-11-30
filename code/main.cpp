@@ -1,11 +1,15 @@
 #include "player.h"
+#include "Engine.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
 int main()
 {
-    enum class STATE {PAUSED, INCREASE, GAME_OVER, PLAYING};
+    Engine engine;
+    engine.run();
+    /*
+    enum class STATE { PAUSED, INCREASE, GAME_OVER, PLAYING };
     STATE state = STATE::GAME_OVER;
     Vector2f resolution;
     resolution.x = VideoMode::getDesktopMode().width;
@@ -80,13 +84,14 @@ int main()
             {
                 player.stop_right();
             }
-        /*
             if (Mouse::isButtonPressed(Mouse::Left))
             {
                 
             }
-        */
+        
         }
+        */
+    /*
         if (state == STATE::INCREASE)
         {
             if (event.key.code == Keyboard::Num1)
@@ -144,6 +149,8 @@ int main()
         }
         window.display();
     }
+    */
+
     return 0;
 
 }

@@ -6,7 +6,7 @@ using namespace sf;
 
 Person::Person()
 {
-    health = 100;
+    screen_res = Vector2f(1920, 1080);
 }
 Vector2f Person::getPosition(Vector2f person_position)
 {
