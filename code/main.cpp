@@ -18,7 +18,7 @@ int main()
     Vector2i mouseScreenPosition;
     Player player;
     IntRect room;
-    
+    std::cout << "hello" << std::endl;
     while (window.isOpen())
     {
         Event event;
@@ -26,16 +26,16 @@ int main()
         {
             if (event.type == Keyboard::Return && state == STATE::PLAYING)
             {
-                state == STATE::PAUSED;
+                state = STATE::PAUSED;
             }
             else if (event.key.code == Keyboard::Return && state == STATE::PAUSED)
             {
-                state == STATE::PLAYING;
+                state = STATE::PLAYING;
                 clock.restart();
             }
             else if (event.key.code == Keyboard::Return && state == STATE::GAME_OVER)
             {
-                state == STATE::INCREASE;
+                state = STATE::INCREASE;
             }
             if (state == STATE::PLAYING)
             {
