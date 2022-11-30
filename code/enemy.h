@@ -17,7 +17,8 @@ class Enemy : public Person{
         int getHealth()override;
         int set_EnemyType(int enemy_type);
     private:
-        double enemy_health;
+        int enemy_HP;
+        int enemy_MaxHP;
         Vector2f enemy_postion;
         int enemy_type;
 };

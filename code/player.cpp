@@ -6,7 +6,7 @@ Player::Player()
 	player_speed = start_speed;
 	player_HP = start_HP;
 	player_MaxHP = start_HP;
-	player_texture.loadFromFile("/graphics/Characters/2 Punk/Punk_idle.png");
+	player_texture.loadFromFile("graphics/Characters/2 Punk/Punk_idle.png");
 	player_sprite.setTexture(player_texture);
 	player_sprite.setOrigin(50, 50);
 }

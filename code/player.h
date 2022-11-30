@@ -22,15 +22,13 @@ public:
     void stop_down()override;
     void stop_left()override;
     void stop_right()override;
-    int getHealth()override;
+    int getHP()override;
     void spawn(IntRect room, Vector2f resolution, int room_size)override;
     bool check_hit(Time hitTime);
     Time getLastHitTime();
     void resetStats();
-    int getHP()override;
     void increase_HP();
     void increase_speed();
-    void increase_damage();
 private:
     Vector2f player_position;
     const float start_speed = 200;
