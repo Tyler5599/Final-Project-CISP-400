@@ -27,15 +27,18 @@ void Engine::input()
 {
 
 	Event event;
-	if (event.type == Event::KeyPressed)
+	while (m_window.pollEvent(event))
 	{
-		if (Keyboard::isKeyPressed(Keyboard::Escape))
+		if (event.type == Event::KeyPressed)
 		{
-			m_window.close();
-		}
-		if (Keyboard::isKeyPressed(Keyboard::Return))
-		{
-			m_playing = true;
+			if (Keyboard::isKeyPressed(Keyboard::Escape))
+			{
+				m_window.close();
+			}
+			if (Keyboard::isKeyPressed(Keyboard::Return))
+			{
+				m_playing = true;
+			}
 		}
 	}
 }
