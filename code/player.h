@@ -6,25 +6,44 @@
 
 using namespace sf;
 
-/*
-class Player : public Person{
-    public:
-        Person();
-        Vector2f setPostion();
-        Vector2f getPostion();
-        Vector2f movePlayer();
-        double setHealth();
-        double check_touch();
-        double set_speed();
-    private:
-        double player_health;
-        Vector2f player_postion;    
 
-}
-
-
-
-*/
+class Player : public Person {
+public:
+    Player();
+    FloatRect getPosition()override;
+    Vector2f getCenter();
+    void update(float runTime, Vector2i mousePosition);
+    void move_up();
+    void move_down();
+    void move_left();
+    void move_right();
+    Sprite getSprite()override;
+    void stop_up()override;
+    void stop_down()override;
+    void stop_left()override;
+    void stop_right()override;
+    int getHealth()override;
+    void spawn(IntRect room, Vector2f resolution, int room_size)override;
+    bool check_hit(Time hitTime);
+    Time getLastHitTime();
+    void resetStats();
+    int getHP()override;
+    void increase_HP();
+    void increase_speed();
+    void increase_damage();
+private:
+    Vector2f player_position;
+    const float start_speed = 200;
+    const float start_HP = 100;
+    bool w_pressed, s_pressed, a_pressed, d_pressed;
+    //Gather player directional input
+    int player_HP;
+    int player_MaxHP;
+    float player_speed;
+    Time p_lastHit;
+    Sprite player_sprite;
+    Texture player_texture;
+};
 
 
 #endif

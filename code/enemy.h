@@ -8,16 +8,18 @@
 class Enemy : public Person{
     public:
         Enemy();
-        Vector2f setPostion();
-        Vector2f getPostion();
-        Vector2f movePlayer();
-        double setHealth();
-        double check_touch();
-        double set_speed();
+        FloatRect getPosition()override;
+        Sprite getSprite()override;
+        void stop_up()override;
+        void stop_down()override;
+        void stop_left()override;
+        void stop_right()override;
+        int getHealth()override;
+        int set_EnemyType(int enemy_type);
     private:
         double enemy_health;
-        Vector2f enemy_postion;    
-
+        Vector2f enemy_postion;
+        int enemy_type;
 };
 
 #endif

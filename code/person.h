@@ -7,17 +7,20 @@ using namespace sf;
 class Person{
     public:
         Person();
-        Vector2f getPosition(Vector2f person_position);
-        double getHealth();
-        bool check_touch(Vector2f person1_position, Vector2f person2_position);
-        bool check_hit(Vector2f person_positon, Vector2f projectile_position);
-    private:
-        double health;
-        Vector2f position;
-        double speed;
-        bool touching;
-        bool hit;
-        
+        virtual FloatRect getPosition();
+        virtual void stop_up();
+        virtual void stop_down();
+        virtual void stop_left();
+        virtual void stop_right();
+        virtual int getHealth();
+        virtual void spawn(IntRect room, Vector2f resolution, int tile_size);
+        virtual Sprite getSprite();
+        virtual int getHP();
+    protected:
+        //Screen res, room size, and size of each tile for platforms
+        Vector2f screen_res;
+        IntRect play_room;
+        int room_size;     
 };
 
 #endif
