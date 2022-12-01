@@ -17,6 +17,8 @@ public:
     void move_down();
     void move_left();
     void move_right();
+    bool handleInput();
+    bool handleShooting();
     Sprite getSprite()override;
     void stop_up()override;
     void stop_down()override;
@@ -41,6 +43,13 @@ private:
     Time p_lastHit;
     Sprite player_sprite;
     Texture player_texture;
+    bool is_shooting;
+    bool is_moving;
+    bool is_jumping;
+    bool start_jump;
+    bool is_falling;
+    float jump_duration;
+    float jump_time;
 };
 
 

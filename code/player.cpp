@@ -140,3 +140,24 @@ void Player::increase_speed()
 {
 	player_speed += (start_speed * 0.2);
 }
+bool Player::handleInput()
+{
+	start_jump = false;
+	if (Keyboard::isKeyPressed(Keyboard::W))
+	{
+		//starts the jump
+		if (!is_jumping && !is_falling)
+		{
+			is_jumping = true;
+			jump_time = 0;
+			start_jump = true;
+		}
+			
+	}
+	else
+	{
+		is_jumping = false;
+		is_falling = true;
+	}
+	return start_jump;
+}

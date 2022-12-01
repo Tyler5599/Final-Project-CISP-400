@@ -3,6 +3,7 @@
 #define ENGINE_H
 #include <SFML/Graphics.hpp>
 #include "Textures.h"
+#include "Hud.h"
 using namespace sf;
 
 class Engine
