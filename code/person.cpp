@@ -8,16 +8,30 @@ Person::Person()
 {
     screen_res = Vector2f(1920, 1080);
 }
-Vector2f Person::getPosition(Vector2f person_position)
+
+void Person::setSprite(string texture)
 {
-    Vector2f position = person_position;
-    return position;
+    Texture spriteTexture;
+    spriteTexture.loadFromFile(texture);
+    personSprite.setTexture(spriteTexture);
 }
+
+FloatRect Person::getPosition(Sprite person)
+{
+    return person.getGlobalBounds();
+}
+
+Sprite Person::getSprite() const
+{
+    return personSprite;
+}
+
 double Person::getHealth()
 {
     return health;
 }
-bool Person::check_touch(Vector2f person1_position, Vector2f person2_position)
+
+bool Person::check_touch(Sprite person1_position, Sprite person2_position)
 {
     if(getPosition(person1_position) == getPosition(person2_position))
     {
@@ -25,7 +39,8 @@ bool Person::check_touch(Vector2f person1_position, Vector2f person2_position)
     }
     return false;
 }
-bool Person::check_hit(Vector2f person_position, Vector2f projectile_position)
+
+bool Person::check_hit(Sprite person_position, Sprite projectile_position)
 {
     if(getPosition(person_position) == getPosition(projectile_position))
     {

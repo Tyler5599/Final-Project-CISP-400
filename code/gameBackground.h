@@ -8,7 +8,7 @@ using namespace sf;
 class Background
 {
     public:
-        Background(Vector2f resolution);
+        Background();
     private:
         Sprite back_sprite;
         Texture back_texture;

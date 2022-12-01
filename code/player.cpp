@@ -3,12 +3,11 @@
 
 Player::Player()
 {
-	player_speed = start_speed;
-	player_HP = start_HP;
-	player_MaxHP = start_HP;
-	player_texture.loadFromFile("graphics/Characters/2 Punk/Punk_idle.png");
-	player_sprite.setTexture(player_texture);
-	player_sprite.setOrigin(50, 50);
+	player_speed = START_SPEED;
+	player_HP = START_HP;
+	player_MaxHP = START_HP;
+	setSprite("graphics/Characters/2 Punk/Punk_idle.png");
+	personSprite.setOrigin(50, 50);
 }
 void Player::spawn(IntRect room, Vector2f resolution, int tile_size)
 {
@@ -24,9 +23,9 @@ void Player::spawn(IntRect room, Vector2f resolution, int tile_size)
 }
 void Player::resetStats()
 {
-	player_speed = start_speed;
-	player_HP = start_HP;
-	player_MaxHP = start_HP;
+	player_speed = START_SPEED;
+	player_HP = START_HP;
+	player_MaxHP = START_HP;
 }
 Time Player::getLastHitTime()
 {
@@ -45,22 +44,12 @@ bool Player::check_hit(Time hitTime)
 		return false;
 	}
 }
-FloatRect Player::getPosition()
-{
-	return player_sprite.getGlobalBounds();
-}
+
 Vector2f Player::getCenter()
 {
 	return player_position;
 }
-Sprite Player::getSprite()
-{
-	return player_sprite;
-}
-int Player::getHP()
-{
-	return player_HP;
-}
+
 //Movement functions
 void Player::move_down()
 {
@@ -83,7 +72,7 @@ void Player::stop_down()
 {
 	s_pressed = false;
 }
-void Player::stop_up()
+void Player::stop_up() 
 {
 	w_pressed = false;
 }
@@ -114,7 +103,7 @@ void Player::update(float runTime, Vector2i mousePosition)
 		player_position.x += player_speed * runTime;
 	}
 
-	player_sprite.setPosition(player_position);
+	personSprite.setPosition(player_position);
 	if (player_position.x > play_room.width - room_size)
 	{
 		player_position.x = play_room.width - room_size;
@@ -134,11 +123,11 @@ void Player::update(float runTime, Vector2i mousePosition)
 }
 void Player::increase_HP()
 {
-	player_MaxHP += (start_HP * 0.25);
+	player_MaxHP += (START_HP * 0.25);
 }
 void Player::increase_speed()
 {
-	player_speed += (start_speed * 0.2);
+	player_speed += (START_SPEED * 0.2);
 }
 bool Player::handleInput()
 {

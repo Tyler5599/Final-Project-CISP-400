@@ -5,22 +5,15 @@
 #include <iostream>
 
 
-class Enemy : public Person{
+class Enemy : public Person
+{
     public:
         Enemy();
-        FloatRect getPosition()override;
-        Sprite getSprite()override;
-        void stop_up()override;
-        void stop_down()override;
-        void stop_left()override;
-        void stop_right()override;
-        int getHealth()override;
-        int set_EnemyType(int enemy_type);
+        void spawn(float startX, float startY, int type, int seed);
     private:
-        int enemy_HP;
         int enemy_MaxHP;
+        int speed;
         Vector2f enemy_postion;
-        int enemy_type;
 };
 
 #endif
