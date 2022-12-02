@@ -28,8 +28,8 @@ class Player : public Person
         float jump_time;
         Sprite playerSprite;
     public:
-        Player();
-        FloatRect getPosition() { return playerSprite.getGlobalBounds(); };
+        Player::Player();
+        FloatRect getPosition()override{ return playerSprite.getGlobalBounds(); };
         Vector2f getCenter();
         void update(float runTime, Vector2i mousePosition);
         void move_up();
@@ -42,7 +42,7 @@ class Player : public Person
         void stop_down();
         void stop_left();
         void stop_right();
-        void spawn(IntRect room, Vector2f resolution, int room_size);
+        void spawn(Vector2f resolution);
         bool check_hit(Time hitTime);
         Time getLastHitTime();
         void resetStats();

@@ -9,15 +9,10 @@ Player::Player()
 	setSprite("graphics/Characters/2 Punk/Punk_idle.png");
 	personSprite.setOrigin(50, 50);
 }
-void Player::spawn(IntRect room, Vector2f resolution, int tile_size)
+void Player::spawn(Vector2f resolution)
 {
-	player_position.x = room.width / 2;
-	player_position.y = room.height / 2;
-	play_room.left = room.left;
-	play_room.width = room.width;
-	play_room.top = room.top;
-	play_room.height = room.height;
-	room_size = tile_size;
+	player_position.x = resolution.x / 2;
+	player_position.y = resolution.y - 200;
 	screen_res.x = resolution.x;
 	screen_res.y = resolution.y;
 }
@@ -104,21 +99,21 @@ void Player::update(float runTime, Vector2i mousePosition)
 	}
 
 	personSprite.setPosition(player_position);
-	if (player_position.x > play_room.width - room_size)
+	if (player_position.x > screen_res.x - 20)
 	{
-		player_position.x = play_room.width - room_size;
+		player_position.x = screen_res.x - 20;
 	}
-	if (player_position.x < play_room.left + room_size)
+	if (player_position.x < 20)
 	{
-		player_position.x = play_room.left + room_size;
+		player_position.x = 20;
 	}
-	if (player_position.y > play_room.height - room_size)
+	if (player_position.y > screen_res.y - 20)
 	{
-		player_position.y = play_room.height - room_size;
+		player_position.y = screen_res.y - 20;
 	}
-	if (player_position.y < play_room.top + room_size)
+	if (player_position.y < 20)
 	{
-		player_position.y = play_room.top + room_size;
+		player_position.y = 20;
 	}
 }
 void Player::increase_HP()

@@ -1,4 +1,9 @@
 #include "Engine.h"
+#include "person.h"
+#include "player.h"
+using namespace std;
+using namespace sf;
+
 Engine::Engine()
 {
 	Vector2f resolution;
@@ -14,6 +19,8 @@ Engine::Engine()
 void Engine::run()
 {
 	Clock clock;
+	enum class STATE{PLAYING, PAUSED, GAME_OVER};
+	STATE state = STATE::GAME_OVER;
 	while (m_window.isOpen())
 	{
 		Time dt = clock.restart();
@@ -26,12 +33,27 @@ void Engine::run()
 }
 void Engine::input()
 {
-
 	Event event;
 	while (m_window.pollEvent(event))
 	{
 		if (event.type == Event::KeyPressed)
 		{
+			if (Keyboard::isKeyPressed(Keyboard::A))
+			{
+				player.move_left();			
+			}
+			if (Keyboard::isKeyPressed(Keyboard::D))
+			{
+				player.move_right();
+			}
+			if (Keyboard::isKeyPressed(Keyboard::W))
+			{
+				player.move_up();
+			}
+			if (Keyboard::isKeyPressed(Keyboard::S))
+			{
+				player.move_down();
+			}
 			if (Keyboard::isKeyPressed(Keyboard::Escape))
 			{
 				m_window.close();
@@ -54,7 +76,7 @@ void Engine::update(float dtAsSeconds)
 }
 void Engine::draw()
 {
-	m_window.clear(Color::White);
+	m_window.clear(Color::Black);
 	m_window.draw(m_backgroundSprite);
 	m_window.setView(m_MainView);
 	m_window.setView(m_hudView);

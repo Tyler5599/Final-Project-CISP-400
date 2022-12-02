@@ -5,14 +5,14 @@
 #include "Textures.h"
 #include "Hud.h"
 #include "enemy.h"
+#include "player.h"
 using namespace sf;
 
 class Engine
 {
 private:
+	Player player;
 	TextureHolder th;
-	const int TILE_SIZE = 50;
-	const int VERTS_IN_QUAD = 4;
 	RenderWindow m_window;
 	View m_MainView;
 	View m_hudView;
@@ -24,7 +24,6 @@ private:
 	void input();
 	void update(float dtAsSeconds);
 	void draw();
-	Enemy* createWave(int numEnemies);
 public:
 	Engine();
 	void run();

@@ -9,7 +9,7 @@ class Enemy : public Person
 {
     public:
         void spawn(float startX, float startY, int type, int seed);
-        bool check_hit(Sprite person_position, Sprite projectile_position);
+        bool hit(Sprite person_position, Sprite projectile_position);
         FloatRect getPosition()override{ return enemy_sprite.getGlobalBounds(); }
         bool isAlive();
         Sprite getSprite();

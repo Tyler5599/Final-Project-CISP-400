@@ -49,7 +49,7 @@ void Enemy::spawn(float startX, float startY, int type, int seed)
     //SetPosition of enemy sprite
     enemy_sprite.setPosition(startX, startY);
 }
-bool Enemy::check_hit(Sprite person_position, Sprite projectile_position)
+bool Enemy::hit(Sprite person_position, Sprite projectile_position)
 {
     enemy_HP--;
     if (enemy_HP < 0)
