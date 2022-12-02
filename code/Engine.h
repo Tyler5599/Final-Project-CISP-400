@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "Textures.h"
 #include "Hud.h"
+#include "enemy.h"
 using namespace sf;
 
 class Engine
@@ -23,6 +24,7 @@ private:
 	void input();
 	void update(float dtAsSeconds);
 	void draw();
+	Enemy* createWave(int numEnemies);
 public:
 	Engine();
 	void run();

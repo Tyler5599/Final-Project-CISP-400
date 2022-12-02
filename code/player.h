@@ -26,9 +26,10 @@ class Player : public Person
         bool is_falling;
         float jump_duration;
         float jump_time;
+        Sprite playerSprite;
     public:
         Player();
-        FloatRect getPosition(); 
+        FloatRect getPosition() { return playerSprite.getGlobalBounds(); };
         Vector2f getCenter();
         void update(float runTime, Vector2i mousePosition);
         void move_up();

@@ -4,11 +4,12 @@ Engine::Engine()
 	Vector2f resolution;
 	resolution.x = VideoMode::getDesktopMode().width;
 	resolution.y = VideoMode::getDesktopMode().height;
-	m_window.create(VideoMode(resolution.x, resolution.y), "Cyber Punk Attack", Style::Fullscreen);
+	m_window.create(VideoMode(resolution.x, resolution.y), "Cyber Punk Attack", Style::Default);
 	m_MainView.setSize(resolution);
 	m_hudView.reset(FloatRect(0, 0, resolution.x, resolution.y));
-	m_backgroundTexture = TextureHolder::GetTexture("graphics/CyberPunkBack.png");
+	m_backgroundTexture = TextureHolder::GetTexture("graphics/CyberPunkBack1920x1080p.png");
 	m_backgroundSprite.setTexture(m_backgroundTexture);
+	Enemy* enemies = nullptr;
 }
 void Engine::run()
 {
@@ -40,6 +41,11 @@ void Engine::input()
 				m_playing = true;
 			}
 		}
+		if (event.type == Event::Closed)
+		{
+			m_window.close();
+		}
+		
 	}
 }
 void Engine::update(float dtAsSeconds)

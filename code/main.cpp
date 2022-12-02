@@ -1,5 +1,6 @@
 #include "player.h"
 #include "Engine.h"
+#include "enemy.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 using namespace sf;

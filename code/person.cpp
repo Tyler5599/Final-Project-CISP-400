@@ -19,7 +19,7 @@ void Person::setSprite(string texture)
 
 bool Person::check_touch(Sprite person1_position, Sprite person2_position)
 {
-    if(getPosition(person1_position) == getPosition(person2_position))
+    if(person1_position.getPosition() == person2_position.getPosition())
     {
         return true;
     }
@@ -28,16 +28,13 @@ bool Person::check_touch(Sprite person1_position, Sprite person2_position)
 
 bool Person::check_hit(Sprite person_position, Sprite projectile_position)
 {
-    if(getPosition(person_position) == getPosition(projectile_position))
+    if(person_position.getPosition() == projectile_position.getPosition())
     {
+        //Return true only if person is hit
         return true;
     }
+    //Returns false if no hit detected
     return false;
-}
-
-FloatRect Person::getPosition(Sprite person)
-{
-    return person.getGlobalBounds();
 }
 
 double Person::getHealth()
