@@ -21,6 +21,7 @@ private:
 	Texture m_backgroundTexture;
 	bool m_playing = false;
 	Time m_GameTimeTotal;
+	Enemy* createWave(int numEnemies, Vector2f screenRes);
 	void input();
 	void update(float dtAsSeconds);
 	void draw();

@@ -7,92 +7,10 @@ using namespace sf;
 
 int main()
 {
+    Player player;
     Engine engine;
     engine.run();
-    /*
-    enum class STATE { PAUSED, INCREASE, GAME_OVER, PLAYING };
-    STATE state = STATE::GAME_OVER;
-    Vector2f resolution;
-    resolution.x = VideoMode::getDesktopMode().width;
-    resolution.y = VideoMode::getDesktopMode().height;
-    RenderWindow window(VideoMode(resolution.x, resolution.y), "Cyber Punk Attack", Style::Default);
-    View mainView(FloatRect(0, 0, resolution.x, resolution.y));
-    Clock clock;
-    Time gameTime;
-    Vector2f mouseGamePosition;
-    Vector2i mouseScreenPosition;
-    Player player;
-    IntRect room;
-    std::cout << "hello" << std::endl;
-    while (window.isOpen())
-    {
-        Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == Keyboard::Return && state == STATE::PLAYING)
-            {
-                state = STATE::PAUSED;
-            }
-            else if (event.key.code == Keyboard::Return && state == STATE::PAUSED)
-            {
-                state = STATE::PLAYING;
-                clock.restart();
-            }
-            else if (event.key.code == Keyboard::Return && state == STATE::GAME_OVER)
-            {
-                state = STATE::INCREASE;
-            }
-            if (state == STATE::PLAYING)
-            {
-
-            }
-        }
-        if (Keyboard::isKeyPressed(Keyboard::Escape))
-        {
-            window.close(); 
-        }
-        if (state == STATE::PLAYING)
-        {
-            if (Keyboard::isKeyPressed(Keyboard::S))
-            {
-                player.move_down();
-            }
-            else
-            {
-                player.stop_down();
-            }
-            if (Keyboard::isKeyPressed(Keyboard::W))
-            {
-                player.move_up();
-            }
-            else
-            {
-                player.stop_up();
-            }
-            if (Keyboard::isKeyPressed(Keyboard::A))
-            {
-                player.move_left();
-            }
-            else
-            {
-                player.stop_left();
-            }
-            if (Keyboard::isKeyPressed(Keyboard::D))
-            {
-                player.move_right();
-            }
-            else
-            {
-                player.stop_right();
-            }
-            if (Mouse::isButtonPressed(Mouse::Left))
-            {
-                
-            }
-        
-        }
-        */
-    /*
+   /*
         if (state == STATE::INCREASE)
         {
             if (event.key.code == Keyboard::Num1)

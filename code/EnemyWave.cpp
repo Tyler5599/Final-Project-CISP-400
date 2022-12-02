@@ -1,7 +1,8 @@
 #include "person.h"
+#include "Engine.h"
 #include "enemy.h"
 
-Enemy* createWave(int numEnemies, Vector2f screenRes)
+Enemy* Engine::createWave(int numEnemies, Vector2f screenRes)
 {
 	Enemy* enemies = new Enemy[numEnemies];
 	int maxY = 0;

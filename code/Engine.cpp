@@ -1,6 +1,8 @@
 #include "Engine.h"
 #include "person.h"
+#include "enemy.h"
 #include "player.h"
+#include <SFML/Graphics.hpp>
 using namespace std;
 using namespace sf;
 
@@ -14,18 +16,30 @@ Engine::Engine()
 	m_hudView.reset(FloatRect(0, 0, resolution.x, resolution.y));
 	m_backgroundTexture = TextureHolder::GetTexture("graphics/CyberPunkBack1920x1080p.png");
 	m_backgroundSprite.setTexture(m_backgroundTexture);
-	Enemy* enemies = nullptr;
 }
 void Engine::run()
 {
+	Vector2f resolution;
+	resolution.x = VideoMode::getDesktopMode().width;
+	resolution.y = VideoMode::getDesktopMode().height;
 	Clock clock;
 	enum class STATE{PLAYING, PAUSED, GAME_OVER};
 	STATE state = STATE::GAME_OVER;
+	Enemy* enemies = nullptr;
+	
+
 	while (m_window.isOpen())
 	{
 		Time dt = clock.restart();
 		m_GameTimeTotal += dt;
 		float dtAsSeconds = dt.asSeconds();
+		
+		player.spawn(resolution);
+		
+		int num_enemies = 20;
+		delete[] enemies;
+		enemies = createWave(num_enemies, resolution);
+
 		input();
 		update(dtAsSeconds);
 		draw();
@@ -40,7 +54,7 @@ void Engine::input()
 		{
 			if (Keyboard::isKeyPressed(Keyboard::A))
 			{
-				player.move_left();			
+				player.move_left();		
 			}
 			if (Keyboard::isKeyPressed(Keyboard::D))
 			{
@@ -73,6 +87,12 @@ void Engine::input()
 void Engine::update(float dtAsSeconds)
 {
 
+	Vector2i mousePosition = Mouse::getPosition();
+	if (m_playing)
+	{
+		player.update(dtAsSeconds, mousePosition);
+
+	}
 }
 void Engine::draw()
 {
