@@ -1,11 +1,6 @@
 #include "enemy.h"
 #include <cstdlib>
 
-Enemy::Enemy()
-{
-    health = 100.00;
-}
-
 void Enemy::spawn(float startX, float startY, int type, int seed)
 {
     switch (type)
@@ -45,5 +40,6 @@ void Enemy::spawn(float startX, float startY, int type, int seed)
     modifier /= 100; 
     speed *= modifier;
 
-    //Need to include SetPosition
+    //SetPosition
+    personSprite.setPosition(startX, startY);
 }

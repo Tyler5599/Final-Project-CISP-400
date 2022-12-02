@@ -7,7 +7,7 @@ Engine::Engine()
 	m_window.create(VideoMode(resolution.x, resolution.y), "Cyber Punk Attack", Style::Fullscreen);
 	m_MainView.setSize(resolution);
 	m_hudView.reset(FloatRect(0, 0, resolution.x, resolution.y));
-	m_backgroundTexture = TextureHolder::GetTexture("graphics/background.png");
+	m_backgroundTexture = TextureHolder::GetTexture("graphics/CyberPunkBack.png");
 	m_backgroundSprite.setTexture(m_backgroundTexture);
 }
 void Engine::run()

@@ -41,7 +41,7 @@ class Player : public Person
         void stop_down();
         void stop_left();
         void stop_right();
-        void spawn(IntRect room, Vector2f resolution, int room_size)override;
+        void spawn(IntRect room, Vector2f resolution, int room_size);
         bool check_hit(Time hitTime);
         Time getLastHitTime();
         void resetStats();
