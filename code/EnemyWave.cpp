@@ -1,6 +1,7 @@
 #include "person.h"
 #include "Engine.h"
 #include "enemy.h"
+using namespace std;
 
 Enemy* Engine::createWave(int numEnemies, Vector2f screenRes)
 {
@@ -14,7 +15,8 @@ Enemy* Engine::createWave(int numEnemies, Vector2f screenRes)
 		srand((int)time(0) * i);
 		int side = (rand() % 2);
 
-		float x, y;
+		float x = 0.0; 
+		float y = 0.0;
 		//Decides which side and coords to spawn enemies
 		switch (side)
 		{
@@ -31,7 +33,7 @@ Enemy* Engine::createWave(int numEnemies, Vector2f screenRes)
 		}
 		//Code for deciding enemy type to spawn
 		srand((int)time(0) * i * 2);
-		int type = (rand() % 4);
+		int type = (rand() % 3);
 		enemies[i].spawn(x, y, type, i);
 	}
 	return enemies;

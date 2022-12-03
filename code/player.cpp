@@ -12,7 +12,7 @@ Player::Player()
 void Player::spawn(Vector2f resolution)
 {
 	player_position.x = resolution.x / 2;
-	player_position.y = resolution.y - 200;
+	player_position.y = resolution.y / 2;
 	screen_res.x = resolution.x;
 	screen_res.y = resolution.y;
 }

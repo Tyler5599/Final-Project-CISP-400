@@ -11,28 +11,28 @@ void Enemy::spawn(float startX, float startY, int type, int seed)
     {
         case 0:
         //Melee
-        setSprite("graphics/Biker_idle.png");
+        setSprite("graphics/Characters/1 Biker/Biker_idle.png");
         m_speed = melee_speed;
         m_HP = melee_unitHP;
         break;
 
         case 1:
         //Regular
-        setSprite("graphics/Biker_idle.png");
+        setSprite("graphics/Characters/1 Biker/Biker_idle.png");
         m_speed = regular_speed;
         m_HP = regular_unitHP;
         break;
 
         case 2:
         //Sniper
-        setSprite("graphics/Punk_idle.png");
+        setSprite("graphics/Characters/2 Punk/Punk_idle.png");
         m_speed = sniper_speed;
         m_HP = regular_unitHP;
         break;
 
         case 3:
         //Heavy
-        setSprite("graphics/Cyborg_idle.png");
+        setSprite("graphics/Characters/3 Cyborg/Cyborg_idle.png");
         m_speed = heavy_speed;
         m_HP = regular_unitHP;
         break;

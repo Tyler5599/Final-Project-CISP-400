@@ -23,7 +23,7 @@ private:
 	Time m_GameTimeTotal;
 	Enemy* createWave(int numEnemies, Vector2f screenRes);
 	void input();
-	void update(float dtAsSeconds);
+	void update(float dtAsSeconds, Enemy*, int num_enemies);
 	void draw();
 public:
 	Engine();

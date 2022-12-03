@@ -41,7 +41,7 @@ void Engine::run()
 		enemies = createWave(num_enemies, resolution);
 
 		input();
-		update(dtAsSeconds);
+		update(dtAsSeconds, enemies, num_enemies);
 		draw();
 	}
 }
@@ -84,14 +84,21 @@ void Engine::input()
 		
 	}
 }
-void Engine::update(float dtAsSeconds)
+void Engine::update(float dtAsSeconds, Enemy* enemies, int num_enemies)
 {
 
 	Vector2i mousePosition = Mouse::getPosition();
 	if (m_playing)
 	{
 		player.update(dtAsSeconds, mousePosition);
-
+		Vector2f playerPosition(player.getCenter());
+		for (int i = 0; i < num_enemies; i++)
+		{
+			if (enemies[i].isAlive())
+			{
+				enemies[i].update(dtAsSeconds, playerPosition);
+			}
+		}
 	}
 }
 void Engine::draw()
