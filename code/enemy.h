@@ -8,11 +8,10 @@
 class Enemy : public Person
 {
     public:
-        void spawn(float startX, float startY, int type, int seed);
+        Sprite spawn(float startX, float startY, int type, int seed);
         bool hit(Sprite person_position, Sprite projectile_position);
-        FloatRect getPosition()override{ return enemy_sprite.getGlobalBounds(); }
+        FloatRect getPosition()override{ return personSprite.getGlobalBounds(); }
         bool isAlive();
-        Sprite getSprite();
         void update(float runTime, Vector2f playerLocation);
     private:
         //Enemy Hp
@@ -29,8 +28,6 @@ class Enemy : public Person
         const int regular_speed = 200;
         //Used to gather enemy location on screen
         Vector2f enemy_position;
-        //Used for loading enemy sprites
-        Sprite enemy_sprite;
         //Used to determine enemy speed
         float m_speed;
         //Used to determine enemy HP

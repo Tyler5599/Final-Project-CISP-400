@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void Enemy::spawn(float startX, float startY, int type, int seed)
+Sprite Enemy::spawn(float startX, float startY, int type, int seed)
 {
     switch (type)
     {
@@ -45,9 +45,10 @@ void Enemy::spawn(float startX, float startY, int type, int seed)
     m_speed *= modifier;
 
     //SetOrigin of enemy sprite
-    enemy_sprite.setOrigin(25, 25);
+    personSprite.setOrigin(25, 25);
     //SetPosition of enemy sprite
-    enemy_sprite.setPosition(startX, startY);
+    personSprite.setPosition(startX, startY);
+    return personSprite;
 }
 bool Enemy::hit(Sprite person_position, Sprite projectile_position)
 {
@@ -66,10 +67,6 @@ bool Enemy::hit(Sprite person_position, Sprite projectile_position)
 bool Enemy::isAlive()
 {
     return m_Alive;
-}
-Sprite Enemy::getSprite()
-{
-    return enemy_sprite;
 }
 void Enemy::update(float runTime, Vector2f playerLocation)
 {
@@ -96,6 +93,6 @@ void Enemy::update(float runTime, Vector2f playerLocation)
     }
 
     //Moving enemy sprite to location of player
-    enemy_sprite.setPosition(enemy_position);
+    personSprite.setPosition(enemy_position);
 
 }

@@ -23,11 +23,11 @@ void Engine::run()
 	resolution.x = VideoMode::getDesktopMode().width;
 	resolution.y = VideoMode::getDesktopMode().height;
 	Clock clock;
-	enum class STATE{PLAYING, PAUSED, GAME_OVER};
-	STATE state = STATE::GAME_OVER;
+	//enum class STATE{PLAYING, PAUSED, GAME_OVER};
+	//STATE state = STATE::PAUSED;
+	m_playing = true;
 	Enemy* enemies = nullptr;
 	
-
 	while (m_window.isOpen())
 	{
 		Time dt = clock.restart();
@@ -37,12 +37,15 @@ void Engine::run()
 		player.spawn(resolution);
 		
 		int num_enemies = 20;
-		delete[] enemies;
+		//delete[] enemies;
 		enemies = createWave(num_enemies, resolution);
 
 		input();
+		//cout << "Passed Input" << endl;
 		update(dtAsSeconds, enemies, num_enemies);
+		//cout << "Passed Update" << endl;
 		draw();
+		//cout << "Passed Draw" << endl;
 	}
 }
 void Engine::input()
@@ -81,7 +84,6 @@ void Engine::input()
 		{
 			m_window.close();
 		}
-		
 	}
 }
 void Engine::update(float dtAsSeconds, Enemy* enemies, int num_enemies)
@@ -105,6 +107,7 @@ void Engine::draw()
 {
 	m_window.clear(Color::Black);
 	m_window.draw(m_backgroundSprite);
+	m_window.draw(player.getSprite());
 	m_window.setView(m_MainView);
 	m_window.setView(m_hudView);
 	m_window.display();

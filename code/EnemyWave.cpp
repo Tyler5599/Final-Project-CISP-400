@@ -28,13 +28,13 @@ Enemy* Engine::createWave(int numEnemies, Vector2f screenRes)
 		//Right side
 		case 1:
 			x = minX;
-			y = minY;
+			y = maxY;
 			break;
 		}
 		//Code for deciding enemy type to spawn
 		srand((int)time(0) * i * 2);
 		int type = (rand() % 3);
-		enemies[i].spawn(x, y, type, i);
+		m_window.draw(enemies[i].spawn(x, y, type, i));
 	}
 	return enemies;
 }
