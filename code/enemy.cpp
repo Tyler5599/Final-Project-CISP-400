@@ -1,5 +1,4 @@
 #include "enemy.h"
-#include "Textures.h"
 #include <cstdlib>
 #include <ctime>
 
@@ -7,32 +6,38 @@ using namespace std;
 
 Sprite Enemy::spawn(float startX, float startY, int type, int seed)
 {
+    Texture texture;
+
     switch (type)
     {
         case 0:
         //Melee
-        setSprite("graphics/Characters/1 Biker/Biker_idle.png");
+        texture.loadFromFile("graphics/Characters/1 Biker/Biker_idle.png");
+        personSprite.setTexture(texture);
         m_speed = melee_speed;
         m_HP = melee_unitHP;
         break;
 
         case 1:
         //Regular
-        setSprite("graphics/Characters/1 Biker/Biker_idle.png");
+        texture.loadFromFile("graphics/Characters/1 Biker/Biker_idle.png");
+        personSprite.setTexture(texture);
         m_speed = regular_speed;
         m_HP = regular_unitHP;
         break;
 
         case 2:
         //Sniper
-        setSprite("graphics/Characters/2 Punk/Punk_idle.png");
+        texture.loadFromFile("graphics/Characters/2 Punk/Punk_idle.png");
+        personSprite.setTexture(texture);
         m_speed = sniper_speed;
         m_HP = regular_unitHP;
         break;
 
         case 3:
         //Heavy
-        setSprite("graphics/Characters/3 Cyborg/Cyborg_idle.png");
+        texture.loadFromFile("graphics/Characters/3 Cyborg/Cyborg_idle.png");
+        personSprite.setTexture(texture);
         m_speed = heavy_speed;
         m_HP = regular_unitHP;
         break;

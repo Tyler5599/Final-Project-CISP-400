@@ -2,8 +2,6 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 #include <SFML/Graphics.hpp>
-#include "Textures.h"
-#include "Hud.h"
 #include "enemy.h"
 #include "player.h"
 using namespace sf;
@@ -12,11 +10,14 @@ class Engine
 {
 private:
 	Player player;
-	TextureHolder th;
 	RenderWindow m_window;
-	View m_MainView;
-	View m_hudView;
-
+	Vector2f resolution;
+	Vector2i mousePosition;
+	Clock clock;
+	int wave = 1;
+	int num_enemies = 20;
+	int num_enemiesAlive = 20;
+	Enemy* enemies;
 	Sprite m_backgroundSprite;
 	Texture m_backgroundTexture;
 	bool m_playing = false;

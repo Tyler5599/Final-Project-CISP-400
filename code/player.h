@@ -10,15 +10,19 @@ using namespace sf;
 class Player : public Person 
 {
     private:
-        Vector2f player_position;
+        Vector2f m_position;
+        //Basic player stats
         const float START_SPEED = 200;
         const float START_HP = 100;
-        bool w_pressed, s_pressed, a_pressed, d_pressed;
         //Gather player directional input
-        int player_HP;
-        int player_MaxHP;
-        float player_speed;
-        Time p_lastHit;
+        bool w_pressed, s_pressed, a_pressed, d_pressed;
+        //Player stats
+        int m_HP;
+        int m_MaxHP;
+        float m_speed;
+        //Time last hit
+        Time m_lastHit;
+        //Is the player shooting/moving?
         bool is_shooting;
         bool is_moving;
         bool is_jumping;
@@ -28,15 +32,15 @@ class Player : public Person
         float jump_time;
     public:
         Player();
-        FloatRect getPosition()override{ return personSprite.getGlobalBounds(); };
         Vector2f getCenter();
-        void update(float runTime, Vector2i mousePosition);
-        void move_up();
-        void move_down();
-        void move_left();
-        void move_right();
-        bool handleInput();
-        bool handleShooting();
+        void update(float runTime);
+        void Up();
+        void Down();
+        void Left();
+        void Right();
+        //bool handleInput();
+        //bool handleShooting();
+        //Stops player from moving out of area
         void stop_up();
         void stop_down();
         void stop_left();

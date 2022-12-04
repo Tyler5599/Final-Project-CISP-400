@@ -8,25 +8,20 @@ using namespace sf;
 
 Engine::Engine()
 {
-	Vector2f resolution;
 	resolution.x = VideoMode::getDesktopMode().width;
 	resolution.y = VideoMode::getDesktopMode().height;
-	m_window.create(VideoMode(resolution.x, resolution.y), "Cyber Punk Attack", Style::Default);
-	m_MainView.setSize(resolution);
-	m_hudView.reset(FloatRect(0, 0, resolution.x, resolution.y));
-	m_backgroundTexture = TextureHolder::GetTexture("graphics/CyberPunkBack1920x1080p.png");
+	m_window.create(VideoMode(resolution.x, resolution.y), "Cyberpunk Attack", Style::Fullscreen);
+	//m_MainView.setSize(resolution);
+	//m_hudView.reset(FloatRect(0, 0, resolution.x, resolution.y));
+	m_backgroundTexture.loadFromFile("graphics/CyberPunkBack1920x1080p.png");
 	m_backgroundSprite.setTexture(m_backgroundTexture);
 }
 void Engine::run()
 {
-	Vector2f resolution;
-	resolution.x = VideoMode::getDesktopMode().width;
-	resolution.y = VideoMode::getDesktopMode().height;
-	Clock clock;
 	//enum class STATE{PLAYING, PAUSED, GAME_OVER};
 	//STATE state = STATE::PAUSED;
-	m_playing = true;
-	Enemy* enemies = nullptr;
+	//m_playing = true;
+	enemies = nullptr;
 	
 	while (m_window.isOpen())
 	{
@@ -36,8 +31,7 @@ void Engine::run()
 		
 		player.spawn(resolution);
 		
-		int num_enemies = 20;
-		//delete[] enemies;
+		delete[] enemies;
 		enemies = createWave(num_enemies, resolution);
 
 		input();
@@ -51,38 +45,164 @@ void Engine::run()
 void Engine::input()
 {
 	Event event;
+	enum class STATE{PLAYING, PAUSED, GAME_OVER, INCREASE};
+	STATE state = STATE::PAUSED;
 	while (m_window.pollEvent(event))
 	{
 		if (event.type == Event::KeyPressed)
 		{
 			if (Keyboard::isKeyPressed(Keyboard::A))
 			{
-				player.move_left();		
+				player.Left();		
 			}
-			if (Keyboard::isKeyPressed(Keyboard::D))
+			else if (Keyboard::isKeyPressed(Keyboard::D))
 			{
-				player.move_right();
+				player.Right();
 			}
-			if (Keyboard::isKeyPressed(Keyboard::W))
+			else if (Keyboard::isKeyPressed(Keyboard::W))
 			{
-				player.move_up();
+				player.Up();
 			}
-			if (Keyboard::isKeyPressed(Keyboard::S))
+			else if (Keyboard::isKeyPressed(Keyboard::S))
 			{
-				player.move_down();
+				player.Down();
 			}
-			if (Keyboard::isKeyPressed(Keyboard::Escape))
+			else if (Keyboard::isKeyPressed(Keyboard::Escape))
 			{
 				m_window.close();
 			}
-			if (Keyboard::isKeyPressed(Keyboard::Return))
+			else if (Keyboard::isKeyPressed(Keyboard::Return) && state == STATE::PAUSED)
 			{
-				m_playing = true;
+				state = STATE::PLAYING;
+				clock.restart();
 			}
+			else if (Keyboard::isKeyPressed(Keyboard::Return) && state == STATE::GAME_OVER)
+			{
+				state == STATE::INCREASE;
+				player.resetStats();
+
+			}
+			if (state == STATE::PLAYING)
+			{
+				/* This is the if statement to handle Reload key!
+				if (event.type == Keyboard::R)
+				{
+					//Plenty of bullets left when reloading
+					if (spareRounds >= magazineSize)
+					{
+						bullet_in_mag = magazineSize;
+						spareRounds -= magazineSize;
+						reload.play() //Plays reload sound!!!
+					}
+					//Only a few bullets left
+					else if (spareRounds > 0)
+					{
+						bullet_in_mag = spareRounds;
+						spareRounds = 0;
+						reload.play() //Plays reload sound!!!
+					}
+				*/
+
+			}
+
 		}
 		if (event.type == Event::Closed)
 		{
 			m_window.close();
+		}
+	}
+	if (Keyboard::isKeyPressed(Keyboard::W))
+	{
+		player.Up();
+	}
+	else
+	{
+		player.stop_up();
+	}
+	if (Keyboard::isKeyPressed(Keyboard::S))
+	{
+		player.Down();
+	}
+	else
+	{
+		player.stop_down();
+	}
+	if (Keyboard::isKeyPressed(Keyboard::A))
+	{
+		player.Left();
+	}
+	else
+	{
+		player.stop_left();
+	}
+	if (Keyboard::isKeyPressed(Keyboard::D))
+	{
+		player.Right();
+	}
+	else
+	{
+		player.stop_right();
+	}
+	if (state == STATE::PLAYING)
+	{
+		// Increase the wave number
+		wave++;
+
+		// Spawn the player in the middle of the arena
+		player.spawn(resolution);
+
+		// Configure the pick-ups
+		//healthPickup.setArena(arena);
+		//ammoPickup.setArena(arena);
+
+		// Create a horde of zombies
+		num_enemies = 5 * wave;
+
+		// Delete the previously allocated memory (if it exists)
+		delete[] enemies;
+		enemies = createWave(num_enemies, resolution);
+		num_enemiesAlive = num_enemies;
+
+		// Play the powerup sound
+		//powerup.play();
+
+		// Reset the clock so there isn't a frame jump
+		clock.restart();
+	}
+	if (state == STATE::PLAYING)
+	{
+		// Update the delta time
+		Time dt = clock.restart();
+		// Update the total game time
+		m_GameTimeTotal += dt;
+		// Make a decimal fraction of 1 from the delta time
+		float dtAsSeconds = dt.asSeconds();
+
+		// Where is the mouse pointer
+		mousePosition = Mouse::getPosition();
+
+		// Convert mouse position to world coordinates of mainView
+		//mousePosition = m_window.mapPixelToCoords(Mouse::getPosition(), m_window.getView());
+
+		// Set the crosshair to the mouse world location
+		//spriteCrosshair.setPosition(mouseWorldPosition);
+
+		// Update the player
+		player.update(dtAsSeconds);
+
+		// Make a note of the players new position
+		Vector2f playerPosition(player.getCenter());
+
+		// Make the view centre around the player				
+		//mainView.setCenter(player.getCenter());
+
+		// Loop through each Zombie and update them
+		for (int i = 0; i < num_enemies; i++)
+		{
+			if (enemies[i].isAlive())
+			{
+				enemies[i].update(dt.asSeconds(), playerPosition);
+			}
 		}
 	}
 }
@@ -90,25 +210,15 @@ void Engine::update(float dtAsSeconds, Enemy* enemies, int num_enemies)
 {
 
 	Vector2i mousePosition = Mouse::getPosition();
-	if (m_playing)
-	{
-		player.update(dtAsSeconds, mousePosition);
-		Vector2f playerPosition(player.getCenter());
-		for (int i = 0; i < num_enemies; i++)
-		{
-			if (enemies[i].isAlive())
-			{
-				enemies[i].update(dtAsSeconds, playerPosition);
-			}
-		}
-	}
+
+	player.update(dtAsSeconds);
+
+	
 }
 void Engine::draw()
 {
-	m_window.clear(Color::Black);
+	m_window.clear();
 	m_window.draw(m_backgroundSprite);
-	m_window.draw(player.getSprite());
-	m_window.setView(m_MainView);
-	m_window.setView(m_hudView);
+	m_window.draw(player.getSprite());;
 	m_window.display();
 }

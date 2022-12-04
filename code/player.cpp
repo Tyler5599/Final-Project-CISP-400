@@ -1,38 +1,41 @@
 #include "player.h"
+//#include "Textures.h"
 #include <SFML/Graphics.hpp>
 
 Player::Player()
 {
-	player_speed = START_SPEED;
-	player_HP = START_HP;
-	player_MaxHP = START_HP;
-	setSprite("graphics/Characters/2 Punk/Punk_idle.png");
-	personSprite.setOrigin(50, 50);
+	m_speed = START_SPEED;
+	m_HP = START_HP;
+	m_MaxHP = START_HP;
+	Texture texture;
+	texture.loadFromFile("graphics/Punk_idle.png");
+	personSprite.setTexture(texture);
+	personSprite.setOrigin(15, 15);
 }
 void Player::spawn(Vector2f resolution)
 {
-	player_position.x = resolution.x / 2;
-	player_position.y = resolution.y / 2;
+	m_position.x = resolution.x / 2;
+	m_position.y = resolution.y / 2;
 	screen_res.x = resolution.x;
 	screen_res.y = resolution.y;
-	personSprite.setPosition(player_position);
+	personSprite.setPosition(m_position);
 }
 void Player::resetStats()
 {
-	player_speed = START_SPEED;
-	player_HP = START_HP;
-	player_MaxHP = START_HP;
+	m_speed = START_SPEED;
+	m_HP = START_HP;
+	m_MaxHP = START_HP;
 }
 Time Player::getLastHitTime()
 {
-	return p_lastHit;
+	return m_lastHit;
 }
 bool Player::check_hit(Time hitTime)
 {
-	if (hitTime.asMilliseconds() - p_lastHit.asMilliseconds() > 200)
+	if (hitTime.asMilliseconds() - m_lastHit.asMilliseconds() > 200)
 	{
-		p_lastHit = hitTime;
-		player_HP -= 10;
+		m_lastHit = hitTime;
+		m_HP -= 10;
 		return true;
 	}
 	else
@@ -43,23 +46,23 @@ bool Player::check_hit(Time hitTime)
 
 Vector2f Player::getCenter()
 {
-	return player_position;
+	return m_position;
 }
 
 //Movement functions
-void Player::move_down()
+void Player::Down()
 {
 	s_pressed = true;
 }
-void Player::move_up()
+void Player::Up()
 {
 	w_pressed = true;
 }
-void Player::move_left()
+void Player::Left()
 {
 	a_pressed = true;
 }
-void Player::move_right()
+void Player::Right()
 {
 	d_pressed = true;
 }
@@ -80,52 +83,52 @@ void Player::stop_right()
 {
 	d_pressed = false;
 }
-void Player::update(float runTime, Vector2i mousePosition)
+void Player::update(float runTime)
 {
 	if (s_pressed)
 	{
-		player_position.y += player_speed * runTime;
+		m_position.y += m_speed * runTime;
 	}
 	if (w_pressed)
 	{
-		player_position.y -= player_speed * runTime;
+		m_position.y -= m_speed * runTime;
 	}
 	if (a_pressed)
 	{
-		player_position.x -= player_speed * runTime;
+		m_position.x -= m_speed * runTime;
 	}
 	if (d_pressed)
 	{
-		player_position.x += player_speed * runTime;
+		m_position.x += m_speed * runTime;
 	}
 
-	personSprite.setPosition(player_position);
-	if (player_position.x > screen_res.x - 20)
+	personSprite.setPosition(m_position);
+	if (m_position.x > screen_res.x - 20)
 	{
-		player_position.x = screen_res.x - 20;
+		m_position.x = screen_res.x - 20;
 	}
-	if (player_position.x < 20)
+	if (m_position.x < 20)
 	{
-		player_position.x = 20;
+		m_position.x = 20;
 	}
-	if (player_position.y > screen_res.y - 20)
+	if (m_position.y > screen_res.y - 20)
 	{
-		player_position.y = screen_res.y - 20;
+		m_position.y = screen_res.y - 20;
 	}
-	if (player_position.y < 20)
+	if (m_position.y < 20)
 	{
-		player_position.y = 20;
+		m_position.y = 20;
 	}
 }
 void Player::increase_HP()
 {
-	player_MaxHP += (START_HP * 0.25);
+	m_MaxHP += (START_HP * 0.25);
 }
 void Player::increase_speed()
 {
-	player_speed += (START_SPEED * 0.2);
+	m_speed += (START_SPEED * 0.2);
 }
-bool Player::handleInput()
+/*bool Player::handleInput()
 {
 	start_jump = false;
 	if (Keyboard::isKeyPressed(Keyboard::W))
@@ -146,3 +149,4 @@ bool Player::handleInput()
 	}
 	return start_jump;
 }
+*/
