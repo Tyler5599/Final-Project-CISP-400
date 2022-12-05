@@ -22,14 +22,15 @@ void Engine::run()
 	//STATE state = STATE::PAUSED;
 	//m_playing = true;
 	enemies = nullptr;
-	
+	player.spawn(resolution);
+
 	while (m_window.isOpen())
 	{
 		Time dt = clock.restart();
 		m_GameTimeTotal += dt;
 		float dtAsSeconds = dt.asSeconds();
 		
-		player.spawn(resolution);
+		
 		
 		delete[] enemies;
 		enemies = createWave(num_enemies, resolution);
@@ -196,7 +197,7 @@ void Engine::input()
 		// Make the view centre around the player				
 		//mainView.setCenter(player.getCenter());
 
-		// Loop through each Zombie and update them
+		// Loop through each Enemy and update them
 		for (int i = 0; i < num_enemies; i++)
 		{
 			if (enemies[i].isAlive())
@@ -212,13 +213,13 @@ void Engine::update(float dtAsSeconds, Enemy* enemies, int num_enemies)
 	Vector2i mousePosition = Mouse::getPosition();
 
 	player.update(dtAsSeconds);
-
+	
 	
 }
 void Engine::draw()
 {
 	m_window.clear();
 	m_window.draw(m_backgroundSprite);
-	m_window.draw(player.getSprite());;
+	m_window.draw(player.getSprite());
 	m_window.display();
 }

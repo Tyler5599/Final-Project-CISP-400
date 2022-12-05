@@ -11,6 +11,7 @@ Player::Player()
 	texture.loadFromFile("graphics/Punk_idle.png");
 	personSprite.setTexture(texture);
 	personSprite.setOrigin(15, 15);
+	cout << "Made Player Constructor" << endl;
 }
 void Player::spawn(Vector2f resolution)
 {
