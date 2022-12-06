@@ -17,6 +17,8 @@ class Person{
         virtual FloatRect getPosition(){return personSprite.getGlobalBounds(); };
         //Returns the sprite of the person/enemy
         Sprite getSprite() const;
+        // Creates sound
+        virtual void makeSound() const = 0;
     protected:
         //Screen res, room size, and size of each tile for platforms
         Vector2f screen_res; 
