@@ -20,6 +20,8 @@ private:
 	Enemy* enemies;
 	Sprite m_backgroundSprite;
 	Texture m_backgroundTexture;
+	Sprite playerSprite;
+	Texture playerText;
 	bool m_playing = false;
 	Time m_GameTimeTotal;
 	Enemy* createWave(int numEnemies, Vector2f screenRes);

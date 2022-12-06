@@ -33,7 +33,7 @@ class Player : public Person
     public:
         Player();
         Vector2f getCenter();
-        void update(float runTime);
+        Vector2f update(float runTime);
         void Up();
         void Down();
         void Left();

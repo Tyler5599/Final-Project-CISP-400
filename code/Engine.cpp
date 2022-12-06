@@ -15,13 +15,16 @@ Engine::Engine()
 	//m_hudView.reset(FloatRect(0, 0, resolution.x, resolution.y));
 	m_backgroundTexture.loadFromFile("graphics/CyberPunkBack1920x1080p.png");
 	m_backgroundSprite.setTexture(m_backgroundTexture);
+	enemies = nullptr;
+	playerText.loadFromFile("graphics/Punk_idle.png");
+	playerSprite.setTexture(playerText);
 }
 void Engine::run()
 {
 	//enum class STATE{PLAYING, PAUSED, GAME_OVER};
 	//STATE state = STATE::PAUSED;
 	//m_playing = true;
-	enemies = nullptr;
+	//enemies = nullptr;
 	player.spawn(resolution);
 
 	while (m_window.isOpen())
@@ -189,7 +192,8 @@ void Engine::input()
 		//spriteCrosshair.setPosition(mouseWorldPosition);
 
 		// Update the player
-		player.update(dtAsSeconds);
+		//player.update(dtAsSeconds);
+		playerSprite.setPosition(player.update(dtAsSeconds));
 
 		// Make a note of the players new position
 		Vector2f playerPosition(player.getCenter());
@@ -212,7 +216,7 @@ void Engine::update(float dtAsSeconds, Enemy* enemies, int num_enemies)
 
 	Vector2i mousePosition = Mouse::getPosition();
 
-	player.update(dtAsSeconds);
+	playerSprite.setPosition(player.update(dtAsSeconds));
 	
 	
 }
@@ -220,6 +224,6 @@ void Engine::draw()
 {
 	m_window.clear();
 	m_window.draw(m_backgroundSprite);
-	m_window.draw(player.getSprite());
+	m_window.draw(playerSprite);
 	m_window.display();
 }

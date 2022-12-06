@@ -84,7 +84,7 @@ void Player::stop_right()
 {
 	d_pressed = false;
 }
-void Player::update(float runTime)
+Vector2f Player::update(float runTime)
 {
 	if (s_pressed)
 	{
@@ -120,6 +120,7 @@ void Player::update(float runTime)
 	{
 		m_position.y = 20;
 	}
+	return m_position;
 }
 void Player::increase_HP()
 {
