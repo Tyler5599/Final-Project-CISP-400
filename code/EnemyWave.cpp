@@ -5,13 +5,17 @@ using namespace std;
 
 Enemy* Engine::createWave(int numEnemies, Vector2f screenRes)
 {
+	//Create a new array of enemy object pointers
 	Enemy* enemies = new Enemy[numEnemies];
-	int maxY = 0;
-	int minY = screenRes.y - 200;
-	int maxX = 20;
-	int minX = screenRes.x - 20;
+	//Set max screen bounds
+	int maxY = 50;
+	int minY = screenRes.y - 50;
+	int maxX = 50;
+	int minX = screenRes.x - 50;
+	//Loop through array and set enemy spawn/type
 	for (int i = 0; i < numEnemies; i++)
 	{
+		//Use random int to help decide side to spawn enemies
 		srand((int)time(0) * i);
 		int side = (rand() % 2);
 
@@ -20,12 +24,12 @@ Enemy* Engine::createWave(int numEnemies, Vector2f screenRes)
 		//Decides which side and coords to spawn enemies
 		switch (side)
 		{
-		//left side
+		//left side of screen
 		case 0:
 			x = maxX;
 			y = minY;
 			break;
-		//Right side
+		//Right side of screen
 		case 1:
 			x = minX;
 			y = maxY;
@@ -36,5 +40,6 @@ Enemy* Engine::createWave(int numEnemies, Vector2f screenRes)
 		int type = (rand() % 3);
 		m_window.draw(enemies[i].spawn(x, y, type, i));
 	}
+	//Return the array
 	return enemies;
 }

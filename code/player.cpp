@@ -1,5 +1,4 @@
 #include "player.h"
-//#include "Textures.h"
 #include <SFML/Graphics.hpp>
 
 Player::Player()
@@ -23,22 +22,27 @@ void Player::spawn(Vector2f resolution)
 }
 void Player::resetStats()
 {
+	//Reset the player's stats to base values
 	m_speed = START_SPEED;
 	m_HP = START_HP;
 	m_MaxHP = START_HP;
 }
 Time Player::getLastHitTime()
 {
+	//Return time of the last hit so player isn't drained of life
 	return m_lastHit;
 }
 bool Player::check_hit(Time hitTime)
 {
+	//Check if player hit each 200 milliseconds
 	if (hitTime.asMilliseconds() - m_lastHit.asMilliseconds() > 200)
 	{
+		//If hit after 200 milliseconds since last hit, reset lastHit time, take off HP, return true
 		m_lastHit = hitTime;
 		m_HP -= 10;
 		return true;
 	}
+	//Else player isn't hit
 	else
 	{
 		return false;
@@ -47,6 +51,7 @@ bool Player::check_hit(Time hitTime)
 
 Vector2f Player::getCenter()
 {
+	//Return player position
 	return m_position;
 }
 
@@ -67,7 +72,7 @@ void Player::Right()
 {
 	d_pressed = true;
 }
-//Bounds functions
+//Bounds functions to stop player from moving off screen
 void Player::stop_down()
 {
 	s_pressed = false;
@@ -86,6 +91,7 @@ void Player::stop_right()
 }
 Vector2f Player::update(float runTime)
 {
+	//If button is pressed, move player onscreen by base speed and runtime 
 	if (s_pressed)
 	{
 		m_position.y += m_speed * runTime;
@@ -102,8 +108,10 @@ Vector2f Player::update(float runTime)
 	{
 		m_position.x += m_speed * runTime;
 	}
-
+	//Set player's sprite location to new location
 	personSprite.setPosition(m_position);
+
+	//If new location is off screen bounds, returns sprite to screen bound
 	if (m_position.x > screen_res.x - 20)
 	{
 		m_position.x = screen_res.x - 20;
@@ -120,6 +128,7 @@ Vector2f Player::update(float runTime)
 	{
 		m_position.y = 20;
 	}
+	//Finally return the player's position
 	return m_position;
 }
 void Player::increase_HP()
@@ -130,25 +139,21 @@ void Player::increase_speed()
 {
 	m_speed += (START_SPEED * 0.2);
 }
-/*bool Player::handleInput()
+void Player::Jump()
 {
-	start_jump = false;
-	if (Keyboard::isKeyPressed(Keyboard::W))
+	gravity = 100.0f;
+	start_jump = true;
+	
+	if (start_jump) 
 	{
-		//starts the jump
-		if (!is_jumping && !is_falling)
-		{
-			is_jumping = true;
-			jump_time = 0;
-			start_jump = true;
-		}
-			
+		velocity = -20.0f;
+		start_jump = false;
 	}
-	else
-	{
-		is_jumping = false;
-		is_falling = true;
-	}
-	return start_jump;
 }
-*/
+void Player::endJump()
+{
+	if (velocity < -20.0f)
+	{
+		velocity = -20.0f;
+	}
+}

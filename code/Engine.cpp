@@ -8,29 +8,37 @@ using namespace sf;
 
 Engine::Engine()
 {
+	//Gather screen resolution, create window
 	resolution.x = VideoMode::getDesktopMode().width;
 	resolution.y = VideoMode::getDesktopMode().height;
 	m_window.create(VideoMode(resolution.x, resolution.y), "Cyberpunk Attack", Style::Fullscreen);
+	//Set background for the game
 	m_backgroundTexture.loadFromFile("graphics/CyberPunkBack1920x1080p.png");
 	m_backgroundSprite.setTexture(m_backgroundTexture);
+	//Set enemies to nullptr prior to aloocating memory
 	enemies = nullptr;
+	//Load player sprite
 	playerText.loadFromFile("graphics/Punk_idle.png");
 	playerSprite.setTexture(playerText);
 }
 void Engine::run()
 {
-
+	//Spawn the player on screen
 	player.spawn(resolution);
 
 	while (m_window.isOpen())
 	{
+		//Restart delta time
 		Time dt = clock.restart();
+		//Add new time to total game time
 		m_GameTimeTotal += dt;
-		float dtAsSeconds = dt.asSeconds();
+		//Convert delta time into seconds
+		dtAsSeconds = dt.asSeconds();
 		
 		
-		
+		//delete enemies pointer
 		delete[] enemies;
+		//Create the enemy wave
 		enemies = createWave(num_enemies, resolution);
 
 		input();
@@ -43,36 +51,24 @@ void Engine::run()
 }
 void Engine::input()
 {
+	//Create events for input gathering
 	Event event;
+	//Create enum class for deciding the game time
 	enum class STATE{PLAYING, PAUSED, GAME_OVER, INCREASE};
+	//Initialize enum variable to paused so the game doesn't start right away
 	STATE state = STATE::PAUSED;
 
 	while (m_window.pollEvent(event))
 	{
 		if (event.type == Event::KeyPressed)
 		{
-			if (Keyboard::isKeyPressed(Keyboard::A))
-			{
-				player.Left();
-				playerSprite.setScale(-1.0f, 1.0f);
-			}
-			else if (Keyboard::isKeyPressed(Keyboard::D))
-			{
-				player.Right();
-				playerSprite.setScale(1.0f, 1.0f);
-			}
-			else if (Keyboard::isKeyPressed(Keyboard::W))
-			{
-				player.Up();
-			}
-			else if (Keyboard::isKeyPressed(Keyboard::S))
-			{
-				player.Down();
-			}
-			else if (Keyboard::isKeyPressed(Keyboard::Escape))
+
+			//When player hits escape, close the window
+			if (Keyboard::isKeyPressed(Keyboard::Escape))
 			{
 				m_window.close();
 			}
+			//Restart game clock when continuing to play
 			else if (Keyboard::isKeyPressed(Keyboard::Return) && state == STATE::PAUSED)
 			{
 				state = STATE::PLAYING;
@@ -113,6 +109,7 @@ void Engine::input()
 			m_window.close();
 		}
 	}
+	//Handle movement of player
 	if (Keyboard::isKeyPressed(Keyboard::W))
 	{
 		player.Up();
@@ -132,6 +129,8 @@ void Engine::input()
 	if (Keyboard::isKeyPressed(Keyboard::A))
 	{
 		player.Left();
+		//Flips the sprite of player when moving left
+		playerSprite.setScale(-1.0f, 1.0f);
 	}
 	else
 	{
@@ -140,6 +139,8 @@ void Engine::input()
 	if (Keyboard::isKeyPressed(Keyboard::D))
 	{
 		player.Right();
+		//If player sprite is flipped already, flip it back!
+		playerSprite.setScale(1.0f, 1.0f);
 	}
 	else
 	{
@@ -149,7 +150,6 @@ void Engine::input()
 	{
 		// Increase the wave number
 		wave++;
-
 		// Spawn the player in the middle of the arena
 		player.spawn(resolution);
 
@@ -164,9 +164,6 @@ void Engine::input()
 		delete[] enemies;
 		enemies = createWave(num_enemies, resolution);
 		num_enemiesAlive = num_enemies;
-
-		// Play the powerup sound
-		//powerup.play();
 
 		// Reset the clock so there isn't a frame jump
 		clock.restart();
@@ -188,16 +185,10 @@ void Engine::input()
 
 		// Set the crosshair to the mouse world location
 		//spriteCrosshair.setPosition(mouseWorldPosition);
-
-		// Update the player
-		//player.update(dtAsSeconds);
 		playerSprite.setPosition(player.update(dtAsSeconds));
 
 		// Make a note of the players new position
 		Vector2f playerPosition(player.getCenter());
-
-		// Make the view centre around the player				
-		//mainView.setCenter(player.getCenter());
 
 		// Loop through each Enemy and update them
 		for (int i = 0; i < num_enemies; i++)
@@ -211,15 +202,13 @@ void Engine::input()
 }
 void Engine::update(float dtAsSeconds, Enemy* enemies, int num_enemies)
 {
-
-	Vector2i mousePosition = Mouse::getPosition();
-
-	playerSprite.setPosition(player.update(dtAsSeconds));
-	
+	//Update the player's sprite
+	playerSprite.setPosition(player.update(dtAsSeconds));	
 	
 }
 void Engine::draw()
 {
+	//Draw sprites!
 	m_window.clear();
 	m_window.draw(m_backgroundSprite);
 	m_window.draw(playerSprite);

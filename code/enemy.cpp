@@ -43,13 +43,14 @@ Sprite Enemy::spawn(float startX, float startY, int type, int seed)
         break;
     }
 
-    //Makes speed set to a range, making every enemy unique
+    //Makes speed set to a range, making every enemy uniquely faster/slower
+    //so there isn't any bundles of enemies
     srand((int)time(0) * seed);
     float modifier = (rand() % 30) + (101 - 30);
     modifier /= 100; 
     m_speed *= modifier;
 
-    //SetOrigin of enemy sprite
+    //SetOrigin of enemy sprite (for rotation of enemy sprite)
     personSprite.setOrigin(25, 25);
     //SetPosition of enemy sprite
     personSprite.setPosition(startX, startY);
@@ -57,7 +58,9 @@ Sprite Enemy::spawn(float startX, float startY, int type, int seed)
 }
 bool Enemy::hit(Sprite person_position, Sprite projectile_position)
 {
+    //Take away enemy HP on hit
     enemy_HP--;
+    //If enemy HP less than 0, then enemy is no longer alive
     if (enemy_HP < 0)
     {
         //Switch m_Alive to false (dead)
@@ -71,6 +74,7 @@ bool Enemy::hit(Sprite person_position, Sprite projectile_position)
 }
 bool Enemy::isAlive()
 {
+    //Returning the enemy's living status
     return m_Alive;
 }
 void Enemy::update(float runTime, Vector2f playerLocation)

@@ -2,16 +2,20 @@
 #define ENEMY_H
 #include "person.h"
 #include <SFML/Graphics.hpp>
-#include <iostream>
 
 
 class Enemy : public Person
 {
     public:
+        //Spawns the enemies given the start coords, enemy type, and random seed for type to spawn
         Sprite spawn(float startX, float startY, int type, int seed);
+        //Checks if the enemy is hit by a projectile
         bool hit(Sprite person_position, Sprite projectile_position);
+        //Gets the sprite position of enemy
         FloatRect getPosition()override{ return personSprite.getGlobalBounds(); }
+        //Used to check if enemy is alive
         bool isAlive();
+        //Updates the enemy location
         void update(float runTime, Vector2f playerLocation);
     private:
         //Enemy Hp
