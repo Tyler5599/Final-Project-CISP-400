@@ -51,17 +51,21 @@ void Engine::input()
 	Event event;
 	enum class STATE{PLAYING, PAUSED, GAME_OVER, INCREASE};
 	STATE state = STATE::PAUSED;
+
 	while (m_window.pollEvent(event))
 	{
 		if (event.type == Event::KeyPressed)
 		{
 			if (Keyboard::isKeyPressed(Keyboard::A))
 			{
-				player.Left();		
+				player.Left();
+				//playerSprite.setRotation(180.0f);
+				playerSprite.setScale(-1.0f, 1.0f);
 			}
 			else if (Keyboard::isKeyPressed(Keyboard::D))
 			{
 				player.Right();
+				playerSprite.setScale(1.0f, 1.0f);
 			}
 			else if (Keyboard::isKeyPressed(Keyboard::W))
 			{
