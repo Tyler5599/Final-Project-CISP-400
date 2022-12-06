@@ -2,6 +2,7 @@
 #define PERSON_H
 #include <SFML/Graphics.hpp>
 using namespace sf;
+using namespace std;
 
 class Person{
     public:
