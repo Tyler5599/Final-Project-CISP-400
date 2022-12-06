@@ -11,8 +11,6 @@ Engine::Engine()
 	resolution.x = VideoMode::getDesktopMode().width;
 	resolution.y = VideoMode::getDesktopMode().height;
 	m_window.create(VideoMode(resolution.x, resolution.y), "Cyberpunk Attack", Style::Fullscreen);
-	//m_MainView.setSize(resolution);
-	//m_hudView.reset(FloatRect(0, 0, resolution.x, resolution.y));
 	m_backgroundTexture.loadFromFile("graphics/CyberPunkBack1920x1080p.png");
 	m_backgroundSprite.setTexture(m_backgroundTexture);
 	enemies = nullptr;
@@ -21,10 +19,7 @@ Engine::Engine()
 }
 void Engine::run()
 {
-	//enum class STATE{PLAYING, PAUSED, GAME_OVER};
-	//STATE state = STATE::PAUSED;
-	//m_playing = true;
-	//enemies = nullptr;
+
 	player.spawn(resolution);
 
 	while (m_window.isOpen())
@@ -59,7 +54,6 @@ void Engine::input()
 			if (Keyboard::isKeyPressed(Keyboard::A))
 			{
 				player.Left();
-				//playerSprite.setRotation(180.0f);
 				playerSprite.setScale(-1.0f, 1.0f);
 			}
 			else if (Keyboard::isKeyPressed(Keyboard::D))

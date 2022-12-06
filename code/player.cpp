@@ -16,7 +16,7 @@ Player::Player()
 void Player::spawn(Vector2f resolution)
 {
 	m_position.x = resolution.x / 2;
-	m_position.y = resolution.y / 2;
+	m_position.y = resolution.y * 0.85;
 	screen_res.x = resolution.x;
 	screen_res.y = resolution.y;
 	personSprite.setPosition(m_position);
